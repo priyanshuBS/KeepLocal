@@ -1,0 +1,7 @@
+# Netlify & Cloudflare Pages read this file and apply these headers to every response.
+# They make the page "cross-origin isolated" (needed for multi-threaded ffmpeg.wasm).
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer

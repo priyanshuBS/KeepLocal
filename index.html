@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Content Security Policy: a second line of defence for the privacy promise.
+      `connect-src 'self' blob: data:` tells the browser to block any network request to
+      another origin, so even a bug (or a compromised dependency) could not send your
+      files anywhere. 'wasm-unsafe-eval' allows compiling WebAssembly (needed for FFmpeg
+      and pdf.js image decoders); blob: is needed because the FFmpeg worker loads its code
+      from in-memory blob URLs.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' blob:; worker-src 'self' blob:; connect-src 'self' blob: data:; img-src 'self' blob: data:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <meta name="description" content="Convert anything. Upload nothing. Private file conversion for images, PDFs, video, audio and data — entirely in your browser." />
+    <meta name="color-scheme" content="light" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Keeplocal — Convert anything. Upload nothing.</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Icon used when the site is added to an iPhone/iPad home screen. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <a class="skip-link" href="#app">Skip to converter</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="./">Keeplocal<span class="dot" aria-hidden="true">.</span></a>
+        <div class="header-actions">
+          <span class="meter mono" title="Nothing you convert is sent over the network">
+            <span class="meter-dot" aria-hidden="true"></span><span class="meter-text">0 B uploaded</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- ============ Home: headline, upload box, key points ============ -->
+      <div class="hero">
+        <section class="intro">
+          <h1>Convert anything.<br />Upload <em>nothing.</em></h1>
+          <p class="lede">Images, PDFs, video, audio and data — converted on your own computer.</p>
+        </section>
+
+        <section id="app" aria-live="polite">
+          <!-- Drop zone (shown when no file is selected) -->
+          <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Choose a file to convert, or drop one here">
+            <!-- Dashed border drawn in SVG so it can "march" while a file is dragged over. -->
+            <svg class="dz-border" aria-hidden="true"><rect rx="12" ry="12" /></svg>
+            <p class="dz-title">
+              <span class="dz-idle">Drop a file here</span>
+              <span class="dz-drag">Release to convert</span>
+            </p>
+            <p class="dz-sub">or</p>
+            <button id="choose" class="btn btn-primary" type="button">Choose file <span class="btn-arrow" aria-hidden="true">→</span></button>
+            <!-- Cycles through example conversions (see main.ts). Decorative. -->
+            <p class="ticker mono" aria-hidden="true">
+              <span class="ticker-inner"><span id="ticker-from">photo.png</span><span class="ticker-arrow">→</span><span id="ticker-to">photo.webp</span></span>
+            </p>
+            <input id="file-input" type="file" hidden />
+          </div>
+          <div id="dz-error" class="notice notice-error" role="alert" hidden></div>
+
+          <!-- Workspace (rendered by main.ts once a file is chosen) -->
+          <div id="workspace" hidden></div>
+        </section>
+
+        <ul class="points mono" aria-label="Key facts">
+          <li>Nothing uploaded</li>
+          <li>Works offline</li>
+          <li>Free</li>
+        </ul>
+      </div>
+
+      <!-- ============ 01 Supported formats ============ -->
+      <section class="section" aria-labelledby="formats-title">
+        <header class="section-head">
+          <span class="num mono">01</span>
+          <h2 id="formats-title">Supported formats</h2>
+        </header>
+        <!-- Filled from the converter registry by main.ts. -->
+        <dl id="formats" class="formats"></dl>
+      </section>
+
+      <!-- ============ 02 Where your file goes ============ -->
+      <section class="section" aria-labelledby="privacy-title">
+        <header class="section-head">
+          <span class="num mono">02</span>
+          <h2 id="privacy-title">Where your file goes</h2>
+        </header>
+
+        <div class="flow mono" aria-label="Your disk, then this browser tab, then your downloads. No server is involved.">
+          <span class="flow-node">your disk</span>
+          <span class="flow-line" aria-hidden="true"></span>
+          <span class="flow-node flow-node-main">this browser tab</span>
+          <span class="flow-line" aria-hidden="true"></span>
+          <span class="flow-node">your downloads</span>
+        </div>
+        <p class="flow-server mono"><s>server</s> never involved</p>
+
+        <div class="facts">
+          <div>
+            <h3>No uploads</h3>
+            <p>Your file is read into this tab's memory and converted there. Close the tab and it's gone.</p>
+          </div>
+          <div>
+            <h3>Works offline</h3>
+            <p>After your first visit the app is cached. Turn off Wi-Fi — it keeps working.</p>
+          </div>
+          <div>
+            <h3>No tracking</h3>
+            <p>No accounts, cookies or analytics. The browser is told to block requests to other sites.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-mark" aria-hidden="true">Keeplocal<span class="dot">.</span></p>
+        <div class="footer-row">
+          <span>Convert anything. Upload nothing.</span>
+          <span class="mono">100% client-side</span>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

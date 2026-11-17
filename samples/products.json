@@ -1,0 +1,27 @@
+[
+  {
+    "sku": "KL-001",
+    "name": "Notebook",
+    "price": 4.5,
+    "inStock": true,
+    "dimensions": { "width": 14.8, "height": 21 },
+    "tags": ["paper", "a5"]
+  },
+  {
+    "sku": "KL-002",
+    "name": "Fountain pen, fine nib",
+    "price": 29.99,
+    "inStock": false,
+    "dimensions": { "width": 1.2, "height": 14 },
+    "tags": ["ink"]
+  },
+  {
+    "sku": "KL-003",
+    "name": "Desk lamp",
+    "price": 39,
+    "inStock": true,
+    "dimensions": { "width": 18, "height": 45 },
+    "tags": [],
+    "warranty": "2 years"
+  }
+]
